@@ -27,7 +27,8 @@
               </div>
             </div>
             <ul class="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              <li><a @click="logout">Cerrar sesión</a></li>
+              <li><button @click="logout">Cerrar sesión</button></li>
+>
             </ul>
           </div>
         </div>
@@ -43,11 +44,13 @@
     <div class="drawer-side">
       <label for="admin-drawer" class="drawer-overlay"></label>
       <ul class="menu p-4 w-64 min-h-full bg-base-200 text-base-content">
-        <li><Link href="/dashboard" class="font-semibold">Dashboard</Link></li>
-        <li><Link href="/usuarios">Usuarios</Link></li>
+        <li><Link :href="route('reportes.dashboard')" class="font-semibold">Dashboard</Link></li>
         <li><Link href="/reportes">Reportes</Link></li>
         <li><Link href="/configuracion">Configuración</Link></li>
         <li><Link :href="route('promociones.index')">Promociones</Link></li>
+        <li><Link :href="route('mascotas.index')">Mascotas</Link></li>
+        <li><Link :href="route('servicios.index')">Servicios</Link></li>
+        <li><Link :href="route('usuarios.index')">Usuarios</Link></li>
 
       </ul>
     </div>
@@ -62,7 +65,18 @@ import { onMounted } from 'vue'
 const user = usePage().props.auth.user
 
 function logout() {
-  router.post('/logout')
+  console.log('Cerrando sesión...')
+  router.post(route('logout'), {}, {
+    preserveScroll: true,
+    onSuccess: () => {
+      console.log('Sesión cerrada exitosamente')
+      // Redirigir a la página de inicio o a donde sea necesario
+      router.visit(route('login'))
+    },
+    onError: (error) => {
+      console.error('Error al cerrar sesión:', error)
+    }
+  })
 }
 
 function cambiarTema(nombre) {

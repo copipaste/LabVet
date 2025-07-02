@@ -104,7 +104,7 @@ class PromocionController extends Controller
         $promociones = Promocion::all();
 
         // Asegúrate que este path coincida con la carpeta y nombre del archivo
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('promocion.pdf', compact('promociones'));
+        $pdf = Pdf::loadView('promocion.pdf', compact('promociones'));
 
         return $pdf->download('promociones.pdf');
     }

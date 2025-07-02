@@ -1,23 +1,26 @@
 <?php
 
+use App\Http\Controllers\PacienteController;
+use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\PromocionController;
+use App\Models\Usuario;
+use App\Http\Controllers\ReporteController;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+return Inertia::render('Auth/Login', [
+        'canResetPassword' => Route::has('password.request'),
+        'status' => session('status'),
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,7 +38,15 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('promociones', PromocionController::class);
-    
+    Route::resource('mascotas', PacienteController::class);
+    Route::resource('servicios', ServicioController::class);
+    Route::resource('usuarios', UsuarioController::class);
+
+
+    Route::get('/dashboard', [ReporteController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('reportes.dashboard');
+
 
 });
 Route::get('p/pdf', [PromocionController::class, 'exportarPDF'])->name('p.pdf');
