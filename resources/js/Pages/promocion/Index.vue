@@ -21,19 +21,19 @@ function eliminar(id) {
 
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-3xl font-bold">Gestión de Promociones</h1>
-    <Link :href="route('p.pdf')" class="btn btn-secondary">
+    <!-- <Link :href="route('p.pdf')" class="btn btn-secondary">
     Exportar PDF
-    </Link>
+    </Link> -->
 
-
+    
       <Link :href="route('promociones.create')" class="btn btn-primary">
         Nueva Promoción
       </Link>
     </div>
 
     <div class="overflow-x-auto">
-      <table class="table table-zebra w-full">
-        <thead>
+      <table class="table w-full">
+        <thead :style="`background-color: var(--thead-bg); color: var(--thead-text);`">
           <tr>
             <th>Nombre</th>
             <th>Descripción</th>
@@ -60,10 +60,10 @@ function eliminar(id) {
               </span>
             </td>
             <td class="flex gap-2">
-              <Link
-                :href="route('promociones.edit', promo.id)"
-                class="btn btn-sm btn-info"
-              >
+              <Link :href="route('promociones.show', promo.id)" class="btn btn-sm btn-primary">
+                Mostrar
+              </Link>
+              <Link :href="route('promociones.edit', promo.id)" class="btn btn-sm btn-info">
                 Editar
               </Link>
               <button

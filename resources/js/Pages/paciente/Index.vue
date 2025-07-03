@@ -2,6 +2,7 @@
 import AdminLayout from '@/Layouts/AdminLayout.vue'
 import Pagination from '@/Components/Pagination.vue'
 import { Head, Link, router } from '@inertiajs/vue3'
+import RoleGate from '@/Components/RoleGate.vue'
 
 defineProps({
   mascotas: Object, // datos paginados
@@ -20,14 +21,17 @@ function eliminar(id) {
 
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-3xl font-bold">Gestión de Pacientes</h1>
-      <Link :href="route('mascotas.create')" class="btn btn-primary">
-        Nueva Mascota
-      </Link>
+      <RoleGate :roles="['administrador', 'bioquimico','secretaria']">
+        <Link :href="route('mascotas.create')" class="btn btn-primary">
+          Nueva Mascota
+        </Link>
+      </RoleGate>
+    
     </div>
 
     <div class="overflow-x-auto">
-      <table class="table table-zebra w-full">
-        <thead>
+      <table class="table w-full">
+        <thead :style="`background-color: var(--thead-bg); color: var(--thead-text);`">
           <tr>
             <th>Nombre</th>
             <th>Especie</th>
@@ -49,14 +53,21 @@ function eliminar(id) {
             <td>{{ mascota.edad }}</td>
             <td>{{ mascota.sexo }}</td>
             <td>{{ mascota.cliente?.nombre || 'Sin dueño' }}</td>
-            <td class="flex gap-2">
-              <Link :href="route('mascotas.edit', mascota.id)" class="btn btn-sm btn-info">
-                Editar
-              </Link>
-              <button @click="eliminar(mascota.id)" class="btn btn-sm btn-error">
-                Eliminar
-              </button>
-            </td>
+        <td class="flex gap-2">
+          <Link :href="route('mascotas.show', mascota.id)" class="btn btn-sm btn-primary">
+            Mostrar
+          </Link>
+
+          <RoleGate :roles="['administrador', 'bioquimico', 'secretaria']">
+            <Link :href="route('mascotas.edit', mascota.id)" class="btn btn-sm btn-info">
+              Editar
+            </Link>
+            <button @click="eliminar(mascota.id)" class="btn btn-sm btn-error">
+              Eliminar
+            </button>
+          </RoleGate>
+        </td>
+
           </tr>
         </tbody>
       </table>

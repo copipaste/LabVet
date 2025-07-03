@@ -13,6 +13,7 @@ use App\Http\Controllers\ReporteController;
 use App\Models\Usuario;
 use App\Http\Controllers\OrdenAnalisisController;
 use App\Http\Controllers\PagoController;
+use App\Http\Controllers\PdfController;
 
 
 Route::get('/', function () {
@@ -50,7 +51,7 @@ Route::get('/temas', function () {
 require __DIR__.'/auth.php';
 
 
-
+// Route::middleware(['auth', 'verified','role:secretaria'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('promociones', PromocionController::class);
     Route::resource('mascotas', PacienteController::class);
@@ -64,4 +65,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 });
-Route::get('p/pdf', [PromocionController::class, 'exportarPDF'])->name('p.pdf');
+
+
+// Route::get('p/pdf', [PromocionController::class, 'exportarPDF'])->name('p.pdf');
+Route::get('/reportes', [PdfController::class, 'index'])->name('reportes.index');
+
+Route::get('/reportes/generar', [PdfController::class, 'generar'])->name('reportes.generar');

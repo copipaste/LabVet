@@ -22,4 +22,9 @@ class Insumo extends Model
     {
         return $this->belongsTo(Categoria::class);
     }
+  
+    public function servicios()
+    {
+        return $this->belongsToMany(Servicio::class, 'servicio_insumo', 'insumo_id', 'servicio_id');
+    }
 }

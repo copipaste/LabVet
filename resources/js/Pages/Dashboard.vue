@@ -65,31 +65,52 @@ const chartPagos = {
   <AdminLayout>
     <Head title="Dashboard" />
 
-    <div class="grid gap-6 md:grid-cols-2">
-      <div class="card bg-base-100 shadow p-4">
-        <h2 class="font-bold mb-2">Total de Mascotas</h2>
-        <p class="text-3xl">{{ totalMascotas }}</p>
-      </div>
+    <div class="container mx-auto px-4">
+      <div class="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
 
-      <div class="card bg-base-100 shadow p-4">
-        <h2 class="font-bold mb-2">Usuarios por Rol</h2>
-        <Pie :data="chartRoles" />
-      </div>
+        <!-- Total de Mascotas -->
+        <div class="card bg-base-100 shadow p-4">
+          <h2 class="font-bold text-lg mb-2">Total de Mascotas</h2>
+          <p class="text-3xl">{{ totalMascotas }}</p>
+        </div>
 
-      <div class="card bg-base-100 shadow p-4 md:col-span-2">
-        <h2 class="font-bold mb-2">Servicios más solicitados</h2>
-        <Bar :data="chartServicios" />
-      </div>
 
-      <div class="card bg-base-100 shadow p-4">
-        <h2 class="font-bold mb-2">Órdenes por Mes</h2>
-        <Bar :data="chartOrdenes" />
-      </div>
 
-      <div class="card bg-base-100 shadow p-4">
-        <h2 class="font-bold mb-2">Pagos Mensuales</h2>
-        <Bar :data="chartPagos" />
+        <!-- Servicios más solicitados -->
+        <div class="card bg-base-100 shadow p-4 ">
+          <h2 class="font-bold text-lg mb-4">Servicios más solicitados</h2>
+          <div class="w-full h-64">
+            <Bar :data="chartServicios" />
+          </div>
+        </div>
+
+        <!-- Órdenes por Mes -->
+        <div class="card bg-base-100 shadow p-4">
+          <h2 class="font-bold text-lg mb-4">Órdenes por Mes</h2>
+          <div class="w-full h-56">
+            <Bar :data="chartOrdenes" />
+          </div>
+        </div>
+
+        <!-- Pagos Mensuales -->
+        <div class="card bg-base-100 shadow p-4">
+          <h2 class="font-bold text-lg mb-4">Pagos Mensuales</h2>
+          <div class="w-full h-56">
+            <Bar :data="chartPagos" />
+          </div>
+        </div>
+
+                <!-- Usuarios por Rol -->
+        <div class="card bg-base-100 shadow p-4">
+          <h2 class="font-bold text-lg mb-4">Usuarios por Rol</h2>
+          <div class="w-full h-64">
+            <Pie :data="chartRoles" />
+          </div>
+        </div>
+
       </div>
     </div>
   </AdminLayout>
 </template>
+
+

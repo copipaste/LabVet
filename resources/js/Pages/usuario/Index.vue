@@ -26,8 +26,8 @@ function eliminar(id) {
     </div>
 
     <div class="overflow-x-auto">
-      <table class="table table-zebra w-full">
-        <thead>
+      <table class="table w-full">
+       <thead :style="`background-color: var(--thead-bg); color: var(--thead-text);`">
           <tr>
             <th>Nombre</th>
             <th>Email</th>
@@ -48,6 +48,9 @@ function eliminar(id) {
               </span>
             </td>
             <td class="flex gap-2">
+              <Link :href="route('usuarios.show', user.id)" class="btn btn-sm btn-primary">
+                Mostrar
+              </Link>
               <Link :href="route('usuarios.edit', user.id)" class="btn btn-sm btn-info">
                 Editar
               </Link>
@@ -55,6 +58,7 @@ function eliminar(id) {
                 Eliminar
               </button>
             </td>
+
           </tr>
         </tbody>
       </table>

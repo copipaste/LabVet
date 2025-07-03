@@ -77,7 +77,11 @@ class UsuarioController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $usuario = User::with('roles:name')->findOrFail($id);
+       
+        return Inertia::render('usuario/Show', [
+            'usuario' => $usuario
+        ]);
     }
 
     /**
