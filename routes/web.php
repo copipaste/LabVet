@@ -11,6 +11,8 @@ use App\Http\Controllers\PromocionController;
 use App\Http\Controllers\InsumoController;
 use App\Http\Controllers\ReporteController;
 use App\Models\Usuario;
+use App\Http\Controllers\OrdenAnalisisController;
+use App\Http\Controllers\PagoController;
 
 
 Route::get('/', function () {
@@ -31,6 +33,12 @@ Route::middleware('auth')->group(function () {
 
     // Rutas para el CRUD de Insumos
     Route::resource('insumos', InsumoController::class);
+
+    // Rutas para el CRUD de Ordenes de Análisis
+    Route::resource('ordenesanalisis', OrdenAnalisisController::class);
+
+    // Rutas para el CRUD de Reportes
+    Route::resource('pagos', PagoController::class);
 });
 
 

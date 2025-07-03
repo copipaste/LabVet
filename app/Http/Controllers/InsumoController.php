@@ -13,7 +13,7 @@ class InsumoController extends Controller
     {
         $insumos = Insumo::with('categoria')->orderBy('id', 'desc')->get();
 
-        return Inertia::render('Insumos/Index', [
+        return Inertia::render('insumo/Index', [
             'insumos' => $insumos
         ]);
     }
@@ -22,7 +22,7 @@ class InsumoController extends Controller
     {
         $categorias = Categoria::all();
 
-        return Inertia::render('Insumos/Create', [
+        return Inertia::render('insumo/Create', [
             'categorias' => $categorias
         ]);
     }
@@ -53,7 +53,7 @@ class InsumoController extends Controller
     {
         $categorias = Categoria::all();
 
-        return Inertia::render('Insumos/Edit', [
+        return Inertia::render('insumo/Edit', [
             'insumo' => $insumo,
             'categorias' => $categorias
         ]);
