@@ -2,6 +2,7 @@
 import AdminLayout from '@/Layouts/AdminLayout.vue'
 import Pagination from '@/Components/Pagination.vue'
 import { Head, Link, router } from '@inertiajs/vue3'
+import RoleGate from '@/Components/RoleGate.vue'
 
 defineProps({
   servicios: Object, // Laravel paginator
@@ -20,15 +21,17 @@ function eliminar(id) {
 
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-3xl font-bold">Gestión de Servicios</h1>
-
+     <RoleGate :roles="['administrador']">
       <Link :href="route('servicios.create')" class="btn btn-primary">
         Nuevo Servicio
       </Link>
+     </RoleGate>
     </div>
 
+
     <div class="overflow-x-auto">
-      <table class="table table-zebra w-full">
-        <thead>
+      <table class="table w-full">
+        <thead :style="`background-color: var(--thead-bg); color: var(--thead-text);`">
           <tr>
             <th>Nombre</th>
             <th>Descripción</th>
@@ -47,12 +50,17 @@ function eliminar(id) {
             <td>{{ servicio.tipo_muestra }}</td>
            <td>{{ Number(servicio.precio).toFixed(2) }}</td>
             <td class="flex gap-2">
+              <RoleGate :roles="['administrador']">
+              <Link :href="route('servicios.show', servicio.id)" class="btn btn-sm btn-primary">
+                Mostrar
+              </Link>
               <Link :href="route('servicios.edit', servicio.id)" class="btn btn-sm btn-info">
                 Editar
               </Link>
               <button @click="eliminar(servicio.id)" class="btn btn-sm btn-error">
                 Eliminar
               </button>
+              </RoleGate>
             </td>
           </tr>
         </tbody>

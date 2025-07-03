@@ -59,7 +59,10 @@ class ServicioController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $servicio = Servicio::findOrFail($id);
+        return Inertia::render('servicio/Show', [
+        'servicio' => $servicio
+        ]);
     }
 
     /**

@@ -1,3 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+[data-theme="kids"] {
+  --bg-color: #FFF7E6;
+  --text-color: #D97706;
+  --header-color: #FCD34D;
+  
+  --drawer-background: #FFE8B6;
+  --drawer-text: #D97706;
+
+  --card-background: #FEF3C7;
+
+  --dropdown-bg: #FFF7E6;
+  --dropdown-hover: #FDE68A;
+  --dropdown-text: #78350F;
+
+    --input-bg: #FFF7E6;
+  --input-text: #78350F;
+  --input-border: #FCD34D;
+
+  --font-family: 'Comic Neue', cursive;
+}
+
+[data-theme="teens"] {
+  --bg-color: #E0F2FE;
+  --text-color: #038abb;
+  --header-color: #93C5FD;
+
+  --drawer-background: #BFDBFE;
+  --drawer-text: #038abb;
+
+
+  --card-background: #DBEAFE;
+
+    --dropdown-bg: #DBEAFE;
+  --dropdown-hover: #93C5FD;
+  --dropdown-text: #1D4ED8;
+
+    --input-bg: #DBEAFE;
+  --input-text: #1D4ED8;
+  --input-border: #93C5FD;
+
+  --font-family: 'Poppins', sans-serif;
+}
+
+[data-theme="adults"] {
+  --bg-color: #1E1E2F;
+  --text-color: #E2E8F0;
+  --header-color: #2C2C3E;
+
+  --drawer-background: #2A2A3B;
+  --drawer-text: #E2E8F0;
+
+  --card-background: #2F2F41;
+
+  --dropdown-bg: #35354B;
+  --dropdown-hover: #45455F;
+  --dropdown-text: #E2E8F0;
+
+  --input-bg: #2C2C3E;
+  --input-text: #E2E8F0;
+  --input-border: #4B5563;
+
+  --font-family: 'Inter', sans-serif;
+}
+
+
+
+
+
+[data-theme="dark"] {
+  --dropdown-bg: #1F2937;
+  --dropdown-hover: #374151;
+  --dropdown-text: #FFFFFF;
+}
+
+[data-theme="light"] {
+  --dropdown-bg: #FFFFFF;
+  --dropdown-hover: #E5E7EB;
+  --dropdown-text: #111827;
+}
+
+
+.dropdown-themed {
+  background-color: var(--dropdown-bg);
+  color: var(--dropdown-text);
+}
+
+.dropdown-themed li > a {
+  color: var(--dropdown-text);
+}
+
+.dropdown-themed li > a:hover {
+  background-color: var(--dropdown-hover);
+}
+
+
+.input-themed {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+}
+
+.input-themed::placeholder {
+  color: var(--input-text);
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+}
+
+#app {
+  font-family: var(--font-family);
+}
+
+
+:root {
+  --font-size: 1rem;
+}
+[data-font-size="xsmall"] {
+  --font-size: 0.75rem; /* text-xs */
+}
+
+[data-font-size="small"] {
+  --font-size: 0.875rem; /* text-sm */
+}
+
+[data-font-size="medium"] {
+  --font-size: 1rem; /* text-base */
+}
+
+[data-font-size="large"] {
+  --font-size: 1.125rem; /* text-lg */
+}
+[data-font-size="xlarge"] {
+  --font-size: 1.25rem; /* text-xl */
+}
+
+ 
+html {
+  font-size: var(--font-size);
+}

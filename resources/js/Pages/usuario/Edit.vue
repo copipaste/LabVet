@@ -23,28 +23,42 @@ function submit() {
   <AdminLayout>
     <Head title="Editar Usuario" />
 
-    <div class="max-w-2xl mx-auto p-6 bg-base-100 shadow rounded-box">
+    <div class="max-w-2xl mx-auto p-6 bg-base-100 shadow rounded-box input-themed">
       <h1 class="text-2xl font-bold mb-4">Editar Usuario</h1>
 
       <form @submit.prevent="submit" class="space-y-4">
         <!-- Nombre -->
         <div>
           <label class="label" for="nombre">Nombre</label>
-          <input v-model="form.nombre" id="nombre" type="text" class="input input-bordered w-full" />
+          <input
+            v-model="form.nombre"
+            id="nombre"
+            type="text"
+            class="input input-bordered w-full input-themed"
+          />
           <InputError :message="form.errors.nombre" class="text-error mt-1" />
         </div>
 
         <!-- Email -->
         <div>
           <label class="label" for="email">Email</label>
-          <input v-model="form.email" id="email" type="email" class="input input-bordered w-full" />
+          <input
+            v-model="form.email"
+            id="email"
+            type="email"
+            class="input input-bordered w-full input-themed"
+          />
           <InputError :message="form.errors.email" class="text-error mt-1" />
         </div>
 
         <!-- Rol -->
         <div>
           <label class="label" for="rol">Rol</label>
-          <select v-model="form.rol" id="rol" class="select select-bordered w-full">
+          <select
+            v-model="form.rol"
+            id="rol"
+            class="select select-bordered w-full input-themed"
+          >
             <option disabled value="">Seleccionar rol</option>
             <option v-for="rol in rolesDisponibles" :key="rol" :value="rol">
               {{ rol.charAt(0).toUpperCase() + rol.slice(1) }}
@@ -63,3 +77,4 @@ function submit() {
     </div>
   </AdminLayout>
 </template>
+

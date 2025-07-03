@@ -15,15 +15,28 @@ defineProps({
       <Link
         v-if="link.url"
         :href="link.url"
-        class="btn btn-sm"
-        :class="{ 'btn-active': link.active }"
+        class="btn btn-sm transition-all duration-200"
+        :class="[
+          link.active
+            ? 'border border-primary font-bold shadow-sm'
+            : 'opacity-80 hover:opacity-100',
+          'pagination-themed'
+        ]"
         v-html="link.label"
       />
       <span
         v-else
-        class="btn btn-sm btn-disabled"
+        class="btn btn-sm btn-disabled pagination-themed"
         v-html="link.label"
       />
     </template>
   </div>
 </template>
+
+<style>
+.pagination-themed {
+  background-color: var(--card-background);
+  color: var(--text-color);
+  border-color: var(--input-border);
+}
+</style>
