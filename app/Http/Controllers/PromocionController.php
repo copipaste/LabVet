@@ -16,6 +16,7 @@ class PromocionController extends Controller
      */
     public function index()
     {
+        
         return Inertia::render('promocion/Index', [
             'promociones' => Promocion::paginate(10), // 10 por página
         ]);
@@ -53,7 +54,10 @@ class PromocionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $promocion = Promocion::findOrFail($id);
+        return Inertia::render('promocion/Show', [
+            'promocion' => $promocion,
+        ]);
     }
 
     /**
@@ -97,16 +101,6 @@ class PromocionController extends Controller
         $promocion->delete();
 
         return redirect()->route('promociones.index')->with('success', 'Promoción eliminada.');
-    }
-
-    public function exportarPDF()
-    {
-        $promociones = Promocion::all();
-
-        // Asegúrate que este path coincida con la carpeta y nombre del archivo
-        $pdf = Pdf::loadView('promocion.pdf', compact('promociones'));
-
-        return $pdf->download('promociones.pdf');
     }
 
 } 

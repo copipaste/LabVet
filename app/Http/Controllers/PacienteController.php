@@ -6,6 +6,7 @@ use App\Models\Paciente;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class PacienteController extends Controller
 {
@@ -14,13 +15,39 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        $mascotas = Paciente::with('cliente')
+        // $mascotas = Paciente::with('cliente')
+        //     ->orderBy('id', 'desc')
+        //     ->paginate(10);
+
+        // return Inertia::render('paciente/Index', [
+        //     'mascotas' => $mascotas
+        // ]);
+
+
+        
+        $user = Auth::user();
+        $usuario = User::find($user->id);
+
+
+
+        if ($usuario->hasRole('administrador')) {
+            $mascotas = Paciente::with('cliente')
             ->orderBy('id', 'desc')
             ->paginate(10);
+        } elseif ($usuario->hasRole('cliente')) {
+            $mascotas = Paciente::with('cliente')
+                ->where('cliente_id', $user->id)
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+        } else {
+            // Por si acaso: devolver vacío o redirigir si el rol no está autorizado
+            $mascotas = collect();
+        }
 
         return Inertia::render('paciente/Index', [
-            'mascotas' => $mascotas
+            'mascotas' => $mascotas,
         ]);
+
     }
 
     /**
@@ -66,7 +93,11 @@ class PacienteController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $mascota = Paciente::findOrFail($id);
+        $mascota->load('cliente'); // si tiene relación con cliente
+        return Inertia::render('paciente/Show', [
+            'mascota' => $mascota,
+        ]);
     }
 
     /**
