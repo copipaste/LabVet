@@ -8,9 +8,13 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\PromocionController;
-use App\Models\Usuario;
+use App\Http\Controllers\InsumoController;
 use App\Http\Controllers\ReporteController;
+use App\Models\Usuario;
+use App\Http\Controllers\OrdenAnalisisController;
+use App\Http\Controllers\PagoController;
 use App\Http\Controllers\PdfController;
+
 
 Route::get('/', function () {
 return Inertia::render('Auth/Login', [
@@ -27,7 +31,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Rutas para el CRUD de Insumos
+    Route::resource('insumos', InsumoController::class);
+
+    // Rutas para el CRUD de Ordenes de Análisis
+    Route::resource('ordenesanalisis', OrdenAnalisisController::class);
+
+    // Rutas para el CRUD de Reportes
+    Route::resource('pagos', PagoController::class);
 });
+
+
 
 Route::get('/temas', function () {
     return Inertia::render('ThemeTest');

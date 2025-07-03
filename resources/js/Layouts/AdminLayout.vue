@@ -1,6 +1,7 @@
 <template>
   <div class="drawer lg:drawer-open" :style="`background-color: var(--bg-color); color: var(--text-color);`">
     <input id="admin-drawer" type="checkbox" class="drawer-toggle" />
+
     <div class="drawer-content flex flex-col">
       <!-- Navbar -->
       <div class="w-full navbar shadow" :style="`background-color: var(--header-color);`">
@@ -10,11 +11,7 @@
         <SearchBar
           v-model="busqueda"
           @search="realizarBusqueda"
-        />
-
-
-
-        
+        /> 
 
       <!-- Selector de Tema -->
       <div class="dropdown dropdown-end mr-2">
@@ -41,7 +38,6 @@
       </ul>
     </div>
 
-
         <!-- Menú de Usuario -->
         <div class="flex-none">
           <div class="dropdown dropdown-end">
@@ -57,9 +53,16 @@
         </div>
       </div>
 
-      <!-- Page Content -->
+      <!-- Page Content + Contador -->
       <div class="p-4 rounded shadow" :style="`background-color: var(--card-background);`">
         <slot />
+
+        <!-- Pie con contador de visitas -->
+        <footer class="text-center text-xs text-gray-500 mt-6">
+          Página visitada {{ visitas?.count ?? 0 }} veces.
+        </footer>
+
+
       </div>
     </div>
 
@@ -104,6 +107,7 @@
   </div>
 </div>
 
+
   </div>
 </template>
 
@@ -113,6 +117,14 @@ import { onMounted, ref } from 'vue'
 import RoleGate from '@/Components/RoleGate.vue'
 import SearchBar from '@/Components/SearchBar.vue'
 
+const props = defineProps({
+  visitas: {
+    type: Object,
+    default: () => ({ count: 0 })
+  }
+})
+
+
 const user = usePage().props.auth.user
 const busqueda = ref('')
 
@@ -121,6 +133,7 @@ function logout() {
     preserveScroll: true,
     onSuccess: () => router.visit(route('login')),
     onError: (error) => console.error('Error al cerrar sesión:', error)
+
   })
 }
 

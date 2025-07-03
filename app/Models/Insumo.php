@@ -11,10 +11,18 @@ class Insumo extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'precio',
-        'cantidad',
+        'cantidad_disponible',
+        'unidad_medida',
+        'fecha_caducidad',
+        'tipo',
+        'categoria_id',
     ];
 
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
+  
     public function servicios()
     {
         return $this->belongsToMany(Servicio::class, 'servicio_insumo', 'insumo_id', 'servicio_id');
